@@ -168,22 +168,9 @@ Fig: Scopes of verifiability are shown within dashed lines. `Controlling identif
 
 To establish a trust basis under Microledger instance, further verification is required, so whether all Custodians reputation is considered trusted. This is conducted by verifying all Custodians identifiers, ie. using third party Governance Framework. 
 
-### Ownership Transferability (rotation)
+### Ownership Transferability
 
-To transfer the ownership of given Microledger instance, the following steps are required:
-* Spawn block `N+1` for any given block `N`, where block `N+1` is the rotation block.
-* In rotation block attach changed Custodian(s) identifiers. If multiple Custodians were included in previous block, they may be changed partially or completely. In other words there is no strong requirement of keeping any relationships of Custodians between blocks. 
-* Finalize anchoring of the rotation block to the chain by digitally signing its contents . Signatures are required from all the Custodians specified in block `N`.
-
-After the rotation block is anchored to the chain, new set of Custodians is established. They now control the Microledger instance.
-
-> Rotation block schema given in JSON format:
-> 
-> ```
-> { }
-> ```
-{.is-info}
-
+To transfer the ownership of given Microledger instance, the current owner/owners needs to create new block with new set of the controlling keys in `Controling identifiers`
 
 ## Transfer between custodians
 
