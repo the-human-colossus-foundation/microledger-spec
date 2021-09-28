@@ -82,9 +82,9 @@ Microledgers are composable, which means that any newly bootstrapped genesis blo
 ![composability](assets/composability.png)
 
 
-### Ownership Transferability (rotation)
+### Ownership Transferability
 
-Current custodian (or a set of custodians for multisig) may rotate the ownership of Microledger to one or more next custodians.
+Current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
 
 ![ownership-transferability](assets/ownership-transferability.png)
 
