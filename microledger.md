@@ -88,7 +88,7 @@ Microledgers are composable, which means that any newly bootstrapped genesis blo
 
 Current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
 
-Microledger does not have owner per se at any time of its existence. Ownership, under the form of Custodians, is defined per block, in the `Controlling Identifiers` section. Ownership is then block scoped, so the control authority is limited up to given block. Given set of Custodians may anchor several blocks, block by block, and in this sense it may be tempting to see them as owners of those blocks. From the Microledger perspective, however, it is seen as temporary, because current set of Custodians may always be transferred to new set.
+Microledger does not have owner per se at any time of its existence. Ownership, under the form of Custodians, is defined per block, in the `Controlling Identifiers` section. Ownership is then block scoped, so the control authority is limited up to given block. Given set of Custodians may anchor several blocks, block by block, and in this sense it may be tempting to see them as owners of a Microledger, especially if these blocks are the only blocks in the chain. From the Microledger perspective, however, it is seen as temporary, because current set of Custodians may always be transferred to new set.
 
 ![ownership-transferability](assets/ownership-transferability.png)
 
