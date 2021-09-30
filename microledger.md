@@ -16,7 +16,9 @@ The need to have parts (or chunks) of data stored in order (or as a chain of eve
 
 The underlying difference between Event Sourcing and Blockchain is how the latter utilizes cryptography to ensure end-verifiability and in particular the authenticity of all the blocks since genesis block. Event Sourcing does not have such characteristic. Blockchain is even more as it is considered a distributed, globally ordered ledger with high resistance to Byzantine generals problem. This is, however, not for free. Due to the nature how they operate or upon what rules, they are not fast beasts.
 
-In this document we propose a concept of Microledger, so a creature that lies somewhere in between of Event Sourcing and Blockchain. It is essentially a blend of these two, so an immutable, append only and end-verifiable evidence of state changes that does not require global ordering or consistency, or in particular a peer to peer network to operate, because it is micro. Whoever has a copy of Microledger instance is able to verify the authenticity on his own and eventally verify the veracity. Only the sole owner of the instance, so the Custodian, may append new block. The ownership over the instance is transferrable so various Custodians may add their blocks to the chain.
+In this document we propose a concept of Microledger, so a creature that lies somewhere in between of Event Sourcing and Blockchain. It is essentially a blend of these two, so an immutable, append only and end-verifiable evidence of state changes that does not require global ordering or consistency, or in particular a peer to peer network to operate, because it is solely a cryptographically bound evidence of events. Whoever has a copy of Microledger instance is able to verify the authenticity on his own and eventally verify the veracity. Eventually, because it is assumed that controlling identifiers resolution is time consuming operation and may depend on other infrastructure that is not ie. highly available.
+
+Microledgers consist of blocks, which include Seals that act as abstract data container under the form of cryptographic digests. Block also includes Controlling Identifiers, where control authority over the block is defined. Only the sole owner of the block, so the Custodian(s), may anchor new block. It is possible Controlling Identifiers are empty and in this case anyone may anchor new block to the chain.
 
 ### Overview
 *This section is non-normative.*
@@ -52,7 +54,7 @@ Microledger consists of fundamental building blocks called blocks. Each next blo
 
 
 * `Seals` segment allows to include any arbitrary data in block under the form of cryptographic digests of that data.
-* `Controlling identifiers` segment describes control authority over the Microledger at given block. Control may be established for single or multiple identifiers through the multisig feature. Furthermore control over the Microledger may be transferred to one or more different identifiers through operation of adding new block. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
+* `Controlling identifiers` segment describes control authority over the Microledger at given block. Control may be established for single or multiple identifiers through the multisig feature. Furthermore control over the Microledger block may be transferred to one or more different identifiers. This is done by operation of anchoring new block to the chain that establishes new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
 * `Digital fingerprint` segment includes the cryptographically derived unique fingerprint of given block. Digital fingerprint is a result of a one-way hash function operation on that block.
 * `Signatures` segment including the cryptographic commitment of Custodians to given Block.
 * `Seals registry` and `Seal attachments` provides mechanism to resolve resources defined within `seals` segment, so to eventually provide them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per each Block. `Seal attachments` are content-bounded to given block and `Seals registry` is an additional layer that knows how to resolve seals required ie. from an external data source.
@@ -66,7 +68,7 @@ Microledger does not expose an interface to include any arbitrary data into it a
 
 ### Microledger identifier
 
-The unique identifier is derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Block 0`.
+The unique identifier is derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Genesis Block`.
 
 ## Characteristics
 
@@ -86,8 +88,15 @@ Microledgers are composable, which means that any newly bootstrapped genesis blo
 
 Current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
 
+Microledger does not have owner per se at any time of its existence. Ownership, under the form of Custodians, is defined per block, in the `Controlling Identifiers` section. Ownership is then block scoped, so the control authority is limited up to given block. Given set of Custodians may anchor several blocks, block by block, and in this sense it may be tempting to see them as owners of those blocks. From the Microledger perspective, however, it is seen as temporary, because current set of Custodians may always be transferred to new set.
+
 ![ownership-transferability](assets/ownership-transferability.png)
 
+As Microledger fosters DAG characteristic, in particular Custodians control authority over given block is irrevocable, they may anchor new blocks apart from the main line. 
+
+Below diagram presents such characteristic:
+
+![ownership-transferability2](assets/ownership-transferability2.png)
 
 ### Serialization and Encoding 
 
