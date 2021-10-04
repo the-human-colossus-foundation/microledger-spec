@@ -148,9 +148,11 @@ Seal representation:
 Control identifiers representation:
 |Concept|Code|
 |---|---|
-|SCI|A|
-|DID:peer|B|
-|DID:web|C|
+|Self-certifying basic prefix|A|
+|Self-certifying self-addressing prefix|B|
+|Self-certifying self-signing prefix|C|
+|DID:peer|D|
+|DID:web|E|
 
 ## Extended Characteristics
 
