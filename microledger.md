@@ -183,7 +183,7 @@ To establish a trust basis under Microledger instance, further verification is r
 
 To transfer the ownership of given Microledger instance, the current owner/owners needs to create new block with new set of the controlling keys in `Controling identifiers`
 
-## Transfer between custodians
+#### Transfer between custodians
 
 Microledger expects at least one custodian to be assigned under `Controlling identifiers`. Transfering not only the ownership, but the whole Microledger instance is not bounded to any specific protocol as it will depend on the use case.
 
