@@ -1,4 +1,4 @@
-# Back store for Microledger 
+# Back story for Microledger 
 
 Microledger tries to address specific needs, build a data model which can lead us towards `authentic data`.
 By `authentic data` we mean provenance chain of any arbitrary information which can be verified
