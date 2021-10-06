@@ -16,3 +16,7 @@ Introducing microledger concept to the versioning system like git, brings digest
 ## Authentic Data Chain Containers
 
 [ACDC](https://github.com/trustoverip/TSS0033-technology-stack-acdc/blob/main/docs/index.md) was huge inspiration for microledger since it is the closest implementation of what we wanted to achieve. Having a generalized structure of cryptographically linked data brought us to create based rules how data, identifiers, semantic and rules can be set together to manage any arbitrary data in secure and authentic way. Implementation of ACDC over microledger data model would open up for different implementations
+
+## Supply chain
+
+![Supply chain](assets/use_cases/supplychain.png)
