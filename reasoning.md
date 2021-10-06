@@ -29,7 +29,8 @@ issued in that ecosystem.
 
 Taking into consideration the above relationship we conclude that this dependency can be presented visually by authentic data pyramid:
 
-![image](https://user-images.githubusercontent.com/312837/136097939-9a3e5f2e-33a8-46ad-9ecd-49003341beaf.png)
+![image](https://user-images.githubusercontent.com/312837/136196364-e7994ec9-6ecc-4f0c-a777-b28f463bdf8a.png)
+
 
 ## Nano, micro, and beyond
 
