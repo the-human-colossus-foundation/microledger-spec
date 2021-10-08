@@ -1,6 +1,6 @@
 # Microledger spec
 
-Copyrights The Human Colossus Foundation 2021
+Copyrights The Human Colossus Foundation 2021 under the [EUPL 1.2 license](LICENSE)
 
 ## Abstract
 
