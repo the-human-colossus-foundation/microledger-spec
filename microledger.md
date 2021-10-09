@@ -27,7 +27,7 @@ The specification of Controlling Identifiers is optional. In case it's empty, an
 
 ![concept](assets/concept.png)
 
-Fig: An overview of how blocks are related to each other. Note it is always a **[DAG]**.
+Fig: An overview of how blocks are connected. Note it is always a **[DAG]**.
 
 
 
@@ -35,11 +35,12 @@ Fig: An overview of how blocks are related to each other. Note it is always a **
 This section is non-normative.
 
 - security layer for authentic data flows
-- simple but extensible 
+- simple but extensible
+- distinction between verfication of attribution (authentication) and verification of accuracy (veracity)
 
 ## Terminology
 
-**SAI** Self-Addressing Identifier 
+**SAI** Self-Addressing Identifier
 
 **Custodian** a role that indicates the ownership over Microledger.
 
@@ -49,21 +50,21 @@ This section is non-normative.
 
 ## Concept
 
-Microledger consists of fundamental building blocks called blocks. Each next block is bound to the previous block by including its cryptographic digest content. 
+Microledger consists of blocks. Each next block is bound to the previous block by including its cryptographic digest content. 
 
 
 ![concept2](assets/concept2.png)
 
 
-* `Seals` segment allows to include any arbitrary data in block under the form of cryptographic digests of that data.
-* `Controlling identifiers` segment describes control authority over the Microledger at given block. Control may be established for single or multiple identifiers through the multisig feature. Furthermore control over the Microledger block may be transferred to one or more different identifiers. This is done by operation of anchoring new block to the chain that establishes new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
-* `Digital fingerprint` segment includes the cryptographically derived unique fingerprint of given block. Digital fingerprint is a result of a one-way hash function operation on that block.
-* `Signatures` segment including the cryptographic commitment of Custodians to given Block.
-* `Seals registry` and `Seal attachments` provides mechanism to resolve resources defined within `seals` segment, so to eventually provide them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per each Block. `Seal attachments` are content-bounded to given block and `Seals registry` is an additional layer that knows how to resolve seals required ie. from an external data source.
+* `Seals` segment allows to include any arbitrary data in a block by including cryptographic digests (provenance) of that data.
+* `Controlling identifiers` segment describes control authority over the Microledger in a given block. Control may be established for single or multiple identifiers through the multisig feature. Furthermore, control over the Microledger block may be transferred to one or more different identifiers. This is done by anchoring new block to the chain, thus establishing new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
+* `Digital fingerprint` segment includes the cryptographically derived unique fingerprint of a given block. The digital fingerprint is a result of a one-way hash function operation on that block.
+* `Signatures` segment includes the cryptographic commitment of Custodians to a given Block.
+* `Seals registry` and `Seal attachments` provides a mechanism to resolve resources defined within the `seals` segment, The resolution eventually provides them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per separate Block. `Seal attachments` are content bound to given block and `Seals registry` is an additional layer that specifies how to resolve seals required in specific situations, for example from an external data source or {here another example?}.
 
 ### Seals in the form of digests
 
-Microledger does not expose an interface to include any arbitrary data into it and instead relies on cryptographic digests of that data to ensure:
+Microledger does not provide an interface to include arbitrary data into its blocks. Instead ML relies on cryptographic digests (provenance) of this data to ensure:
 * maximum adoptability as various use cases will require different data semantics. It is out of Microledger scope to handle such semantics and it is the consumer responsibility to address that accordingly;
 * easy transferability among the custodians of the Microledger. Cryptographic hash functions have the characteristic of fixed size output for any size given input. Hence, enforcing digests in the `Seals` segment fosters better control of the size of Microledger.
 * privacy concerns so any Microledger can be considered public as it does not contain any private data per se.
@@ -76,11 +77,11 @@ The unique identifier is derived from the genesis block of the Microledger. In e
 
 ### End verifiability
 
-Blocks are chained cryptographically. Each block encapsulates its own `digital fingerprint` and furthermore each next block includes `digital fingerprint` of the previous block.
+Blocks are chained cryptographically. Each block encapsulates its own `digital fingerprint` and furthermore each next block includes the `digital fingerprint` of the previous block.
 
 ### Composability
 
-Microledgers are composable, which means that any newly bootstrapped genesis block can bind to another Microledger instance.
+Microledgers are composable, which means that any newly bootstrapped genesis block can be bound to another Microledger instance.
 
 
 ![composability](assets/composability.png)
