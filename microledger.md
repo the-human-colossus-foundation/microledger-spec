@@ -65,9 +65,9 @@ Microledger consists of blocks. Each next block is bound to the previous block b
 ### Seals in the form of digests
 
 Microledger does not provide an interface to include arbitrary data into its blocks. Instead ML relies on cryptographic digests (provenance) of this data to ensure:
-* maximum adoptability as various use cases will require different data semantics. It is out of Microledger scope to handle such semantics and it is the consumer responsibility to address that accordingly;
-* easy transferability among the custodians of the Microledger. Cryptographic hash functions have the characteristic of fixed size output for any size given input. Hence, enforcing digests in the `Seals` segment fosters better control of the size of Microledger.
-* privacy concerns so any Microledger can be considered public as it does not contain any private data per se.
+* maximum adoptability as various use cases will require different data semantics. It is out of Microledger's scope to handle such semantics and it's the consumer's responsibility to address this accordingly;
+* easy transferability among the custodians of the Microledger. A cryptographic hash function has a fixed size output for any size given input. Hence, enforcing digests in the `Seals` segment fosters better control of the size of Microledger and substantial reduction of the size of the log. Mind you, this design introduces the need to store and manage the linked sources (input of the hash functions) without defects.
+* privacy concerns, be aware that any Microledger can be considered _pii_, personal identifiable information, although it's public and it does not contain any private data at face value.
 
 ### Microledger identifier
 
@@ -89,22 +89,23 @@ Microledgers are composable, which means that any newly bootstrapped genesis blo
 
 ### Ownership Transferability
 
-Current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
+A current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
 
-Microledger does not have owner per se at any time of its existence. Ownership, under the form of Custodians, is defined per block, in the `Controlling Identifiers` section. Ownership is then block scoped, so the control authority is limited up to given block. Given set of Custodians may anchor several blocks, block by block, and in this sense it may be tempting to see them as owners of a Microledger, especially if these blocks are the only blocks in the chain. From the Microledger perspective, however, it is seen as temporary, because current set of Custodians may always be transferred to new set.
+During the course of its lifetime a Microledger does not have an owner at all times. Ownership, under the form of Custodians, is optional and defined per block, in the `Controlling Identifiers` section. So by design Ownership is block scoped and control authority is limited to a given block. 
+Knowing that a set of Custodians may anchor several consequtive blocks, it may be tempting to see them as owners of a Microledger, especially if these blocks are the only blocks in the chain. From the Microledger perspective, however, it is seen as a temporary state, because current set of Custodians may always be transferred to a new set of custodians.
 
 ![ownership-transferability](assets/ownership-transferability.png)
 
-As Microledger fosters DAG characteristic, in particular Custodians control authority over given block is irrevocable, they may anchor new blocks apart from the main line. 
+As Microledger fosters DAG characteristics, in particular Custodians control authority over given blocks is irrevocable, however they may anchor new blocks apart from the main chain. 
 
-Below diagram presents such characteristic:
+The diagram below illustrates this feature:
 
 ![ownership-transferability2](assets/ownership-transferability2.png)
 
 ### Serialization and Encoding 
 
-Microledger use self-describing mechanism for encoding and serialization used for each block. 
-Serialization and encoding is all about how to package and transmit the blocks over variouse protocols and data formats. Plugable and self-describing mechanism enables algorithmic agility. 
+Microledger uses a self-describing mechanism for encoding and serialization of blocks. 
+Serialization and encoding is all about how to package and transmit the blocks over variouse protocols and data formats. A plugable and self-describing mechanism enables algorithmic agility. {what do you want to say here?}
 
 ### Plugable 
 
