@@ -109,7 +109,7 @@ Serialization and encoding is all about how to package and transmit the blocks o
 
 ### Plugable 
 
-Each of the core component of the microledger can be echange with specific implementation. This leaves room for adopting any combination which would serve for specific use case. 
+Each of the core component of the microledger can be combined and adjusted in specific implementations. This enables customization for specific use cases. 
 
 ![plugable](assets/plugable.png)
 
@@ -117,9 +117,7 @@ Each of the core component of the microledger can be echange with specific imple
 
 ### Seals
 
-A seal is a qualified digest where its derivation code specifies what type of hashing function
-was used but does not include any other information about the associated data. The hashing step
-produces a digest of the serialized data that is referenced by the seal. The seal acts as an anchor of the data. To clarify, the actual data is not provided explicitly in the seal, but merely the digest of the serialized data, hence the data is hidden. This may be useful in making verifiable crypto-graphic commitments at the location of an event to data stored and/or disclosed elsewhere.
+A seal is a qualified digest where its derivation code specifies what type of hashing function was used. However, a seal does not include any other information about the associated data. The hashing step produces a digest of the serialized data that is referenced by the seal. The seal acts as an anchor of the data. To clarify, the actual data is not provided explicitly in the seal, but merely the digest of the serialized data, hence the data is hidden. This may be useful in making verifiable cryptographic commitments at the location of an event to data stored and/or disclosed elsewhere.
 
 ### Digital fingerprint
 
@@ -135,7 +133,7 @@ Seals registry it is a external component to the microledger which acts as a loo
 
 ### Mapping table codes
 
-Below tables provide the registry for derivation codes for all supported components.
+The tables below provide the registry of derivation codes for all supported components.
 
 Digital fingerprint representation:
 |Concept|Code|
@@ -162,7 +160,7 @@ Control identifiers representation:
 
 ### End verifiability
 
-It is a two step process, where both authenticity and veracity are being verified.
+It's a two step process, where both authenticity and veracity are being verified.
 
 #### Authenticity
 
@@ -181,32 +179,36 @@ Fig: Scopes of verifiability are shown within dashed lines. `Controlling identif
 
 #### Veracity
 
-To establish a trust basis under Microledger instance, further verification is required, so whether all Custodians reputation is considered trusted. This is conducted by verifying all Custodians identifiers, ie. using third party Governance Framework. 
+To establish a trust basis under a Microledger instance, further verification is required, so whether all Custodians reputation is considered trusted. This is conducted by verifying all Custodians identifiers, generally using a third party Governance Framework. 
 
 ### Ownership Transferability
 
-To transfer the ownership of given Microledger instance, the current owner/owners needs to create new block with new set of the controlling keys in `Controling identifiers`
+To transfer the ownership of given Microledger instance, the current owners need to create new block with new set of the controlling keys in `Controling identifiers`
 
 #### Transfer between custodians
 
-Microledger expects at least one custodian to be assigned under `Controlling identifiers`. Transfering not only the ownership, but the whole Microledger instance is not bounded to any specific protocol as it will depend on the use case.
+Microledger expects at least one custodian to be assigned under `Controlling identifiers`. Transfering the whole Microledger instance (and not only the ownership) is not bound to any specific protocol and might vary per usecase.
 
-Microledger instance transfership requires sender and receiver.
+Transferring a Microledger instance requires a sender and a receiver.
 
-Microledger instance to be considered as a transferred to other custiodian require both, so the chain of blocks and seals registry to be transferred. The transfer itself is:
+For a Microledger instance to be considered as 'transferred' to other custiodians require both:
+1. the chain of blocks 
+2. and seals registry
+ to be transferred. 
+
+The transfer process is:
 * synchronous, when it is assumed that seals are not significant in size, yet essential attribution to the chain;
-* asynchronous in scenarios where seals transfership requires significant time to be completed.
+* asynchronous in scenarios where seals transfer requires significant time to be completed.
 
-The latter, as its characteristic is to be eventually consistent, is also more flexible, because the receiver is able to immediately verify the authenticity of the chain without waiting for the seals themselves.
+The latter eventually aim to preserve consistenty. This process is also more flexible, because the receiver is able to immediately verify the authenticity of the chain without having to wait for the seals to arrive.
 
-It is allowed to have Microledger instance, where seals registry does not contain any physical data, but only exposes interface towards ie. `IPFS` or `BitTorrent` networks.
+It is allowed to have a Microledger instance, where the seals registry does not contain any physical data, but only provides an interface to this data, e.g. `IPFS` or `BitTorrent` networks.
 
-It is up to the consumer to decide, which approach is best.
+It is up to the user to decide, which approach is best.
 
 ### Serialization and transport 
 
-Synchronous and asynchronous transfership enforces appropriate exchange protocols to be used in given scenario. In case of synchronous transfership it is a bundle or an envelope, which contains both the chain of blocks and seals registry. 
-
+Synchronous and asynchronous transfer enforces appropriate exchange protocols to be used in given scenario. A synchronous transfer consist of a bundle or an envelope, which contains both the chain of blocks and the seals registry. 
 
 ## References
 
