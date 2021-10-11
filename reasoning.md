@@ -33,17 +33,19 @@ All considered, relationships and mutual dependencies can be presented visually 
 
 ## Nano, micro, and beyond
 
-To increase interoperability and assure about base security characteristics we wanted to build a data model which could sever
-any type of use case within the scope of the data economy. If data are involved they need to be authentic. How we can generalize
-on such a high level without losing the focus on that what needs to be implemented? 
+To increase interoperability and promote widespread use we'd like to build a data model, that could serves
+any type of use case within the scope of the data economy, while uniformly guaranteeing base security. 
+That means: the data involved need to be authentic and consistent. 
+This is easier said than done. How we can generalize on such a high level without losing the focus on that what needs to be implemented? 
 Following the `authentic data pyramid`, we can easily address topics one by one without losing too much focus. 
 
 ### Nanoledger for Integrity
-When we need integrity which needs a simple mechanism of linked data structures that are cryptographically linked. We can easily achieve this by using a content digest and connecting any arbitrary data in a form of a seal (digest of that content) into the data structure. Why seal not transactions or raw data? Two reasons:
+For integrity we use a simple mechanism of cryptographically-linked data structures. We can achieve this by using a content digest and connect any arbitrary data in a form of a seal (digest of that content) into the data structure. Arguments for seals above transactions or raw data:
 - privacy
-- controlled growth size
+- controlled growth of volumes
 
-Even that it seems like `seal` is some kind of weird limitation from the implementation point of view is just a detail. It brings the same security aspects as if we would embed `raw data` in, it allows us to accumulate as much data we like similar to the concept of transactions in a blockchain. In addition, it gives us a way to have higher privacy since none of the data is exposed directly and allows us to have control over the size of such data structure since no matter how big data we want to include `seal` would have the same length depending on the used algorithm.
+Even though a `seal` seems a rather limited construct from the  implementation point of view, a seal brings the same security aspects as one would get by embedding `raw data` in the structure. Furthermore, introducing seals allows us to accumulate as much data(provenance) as we like, similar to the concept of transactions in a blockchain. In addition, it gives us a way to have higher privacy since none of the data is exposed directly.  Lastly, seals allow us to have control over the size of the data structure since regardless the volume of the data, using `seals` would result in the same amount of bytes*.
+'* dependent of the used algorithm
 
 ### Microledger for Authenticity
 
