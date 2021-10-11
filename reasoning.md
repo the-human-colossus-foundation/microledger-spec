@@ -1,33 +1,32 @@
 # Backstory for Microledger 
 
-Microledger tries to address specific needs, build a data model which can lead us towards `authentic data`.
+With Microledger the Human Colossos Foundation (HCF) started building a data model which can lead to `authentic data`.
 By `authentic data` we mean provenance chain of any arbitrary information which can be verified
-cryptographically at `any point of time`. This means that whoever would ever possess the data in a form of a microledger
+cryptographically, anywhere at `any point of time`. This means that whoever would ever possess the data in a form of a microledger
 he/she/it would be able to cryptographically verify the integrity and authenticity of the information.
+
+This fulfills the specific need on the internet to not only be able to tell _who said what_ (authenticity), but also to be sure that what was said is true, consistent, and coherent (veracity).
 
 ## Intro
 
-When we operate on any data within digital space we are always interested in tree characteristics:
+When we operate on any data in the digital space, we want this data to have at least these main features:
 - integrity
 - authenticity
 - veracity
 
-`Integrity` addresses the topics related to the state of being whole and undivided, 
-we can verify cryptographically what we got is exactly what we are expecting to get.
+`Integrity` addresses the topics related to the state of being whole and undivided, we can verify cryptographically that what we've got is exactly what we've expected to get.\
 Integrity is achieved through the simple mechanism of one-way functions which generates a digest of given content.
 
 `Authenticity` provides the quality of being authentic. To state the authenticity of arbitrary data
-we need to understand where it comes from. We can achieve that by simply doing a cryptographic signature
-which would tell us who create it in the first place. We could chain them if the data pass through different entities.
-Authenticity can be achieved through digital signature over mentioned data. Everyone anytime knowing the public key of an entity who signed that payload can reason from where this information is coming from. 
+we need to understand where it comes from. The sender can achieve that by simply cryptographically sign the data.
+This would enable the receiver to an certain extent 'tell' who create the signature in the first place. This is done by verifying the the signature with a supplied public key. We could chain signatures if the data at hand (payload) pass through different entities.
+Authenticity can be achieved through digital signature of the above mentioned data. Everyone with the provided public key of an entity who signed the payload can verify and trust the authenticity of the sender of the information at the time of signing. 
 
-`Veracity` is the most tricky one since it involves trust which is pure human emotion. Important thing is to realize
-that veracity over data can be established only if we can assure about `integrity and `authenticity in the first place.
-Without it, we do not have the basis to establish trust. Veracity can be achieved through governance which is built within
-a given ecosystem. The rules and reputation which is operating within our governance giving us the basis for trust over any data
-issued in that ecosystem.
+`Veracity` is the most tricky feature. Truthfullness involves trust and probability, the former is human emotion, the latter involves statistictics and assessment. Important thing is to realize
+that veracity over data can be established only if we can assure  `integrity` and `authenticity` in the first place.
+Without these two characteristics, there's no basis to establish trust. Veracity can be achieved through governance. Governance structures are built within a given ecosystem. The rules and reputation present in a governance framework enable trust over any data(provencance), issued in that ecosystem.
 
-Taking into consideration the above relationship we conclude that this dependency can be presented visually by authentic data pyramid:
+All considered, relationships and mutual dependencies can be presented visually by authentic data pyramid:
 
 ![image](https://user-images.githubusercontent.com/312837/136196364-e7994ec9-6ecc-4f0c-a777-b28f463bdf8a.png)
 
