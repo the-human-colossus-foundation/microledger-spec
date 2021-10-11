@@ -65,11 +65,12 @@ Should the controlling identifier be missing, we can still fall back to the nano
 
 ### Governance for Veracity
 
-Having in place integrity and authenticity we can reach towards the end state veracity of the data which then can be used for the decision-making process or simply consuming the data knowing that we can trust it. Governance is responsible for setting up the rules, establish schema, draw the line what and where can be used. It does not mean that it needs to be built around centralized systems but it does not forbid that either. Is up to the community of a given ecosystem to define how it would work. The assumption is that through authentic data we can build a reputation system that could help to establish a truly decentralized governance system that could be easily deployed in any jurisdiction and environment.
+As soon as we have `integrity` and `authenticity` in place, we can reach the final state: `veracity` of the linked data. Truthfull, coherent and consistent data is more valuable than ordinairy data for the decision-making processes or, straightforward, the consumption of the data. Knowing that one can trust content in some context, implicitly means it has more value in this context.\
+Governance is responsible for setting up the rules, establish a schema, draw the lines between fields of meaningful application. It does not mean that it {What do you mean by 'it' here?} needs to be built around centralized systems but it does not forbid that either. It's up to the community of a given ecosystem to define how it would work. The assumption is that through authentic data we can build a reputation system that could help to establish a truly decentralized governance system that could be easily deployed in any jurisdiction and environment.
 
 ### Summary
 
-Taking into consideration all described layers we can represent them in the context of concreate implementation as on below picture.
+Taking into consideration all described layers we can represent them in the context of a concrete roadmap or implementation path as show in the diagram below.
 
 
 ![image](https://user-images.githubusercontent.com/312837/136104142-6b354f31-8761-4322-9b25-050c0d62572c.png)
