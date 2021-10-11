@@ -49,14 +49,19 @@ Even though a `seal` seems a rather limited construct from the  implementation p
 
 ### Microledger for Authenticity
 
-As we learned integrity in many cases is not enough, and we need to verify the authenticity. This is where Microledger introduces `controlling identifiers`, which is a mechanism of cryptographic algorithms based on public-private key infrastructure, where we can reason about the authenticity of the given block. The aim of controlling identifiers is just to provide enough information that anyone else who would receive microledger at any point in time would be able to verify the authenticity of that information. As we pointed out in the previous section of that document the state of the art for authenticity is the digital signature. That is the only reasonable way to do verification of the authenticity of the given block.
+As we've learned above, data integrity in many cases is not enough, we need to verify the authenticity of the data. This is where Microledger introduces `controlling identifiers`, that is a mechanism of cryptographic algorithms based on public-private key infrastructure. With controlling identifiers we can cryptographically verify the authenticity of the given block, all the way back to the controlling key pair.\
+The aim of controlling identifiers is to provide just enough information for anyone who has received microledger at any point in time, is be able to verify the authenticity of the referenced information in Microledger. As we've pointed out before, the state of the art for authenticity is the digital signature. The only trustworthty way to verify the authenticity of the given ML block is to use the self-signed public key of the signature to cryptografically proof its origin.
 
-The controlling mechanism can be built in various ways which `microledger` assumes that the community will drive the implementation the only requirement is to make sure that it would be based on strong digital signatures cryptography. 
+ `Microledger` allows the controlling mechanism to be built in various ways. It assumes that the community will drive implementations. The only requirement is to make sure that it would be based on strong digital signatures cryptography.
 
-To address privacy concerns and for example not revealing the public key of someone directly into the block, or his identifier which both could be used for correlation the controlling identifier can be anchored similar way as payload in a form of a seal.
+### Privacy concerns and regulations
+Rules and regulations are in place and further emerging to address privacy concerns on public servers and ledgers, e.g. the GDPR in Europe. The mechanism we can put in place to assure compliance with regulations are: 
+- hiding the identifier/public key of some entity
+- prevent correlation of the controlling identifier with the outside world (salt / peper)
+- anchored similar way as payload in a form of a seal.
 
-Important to mention is that controlling identifier goal is just about authenticity, if there are any other logic that needs to be applied in the context of the payload which is anchored, this always can be added in addition. But to talk about authentic data `controlling identifiers` are required mechanisms to rely on authenticity build into the data model and not depend on specific use cases. If the controlling identifier would be leftover we fall back to the nano ledger and we still can do some useful things, sometimes even achieving authenticity on the level of the payload but this would need to define specifically per case which makes it hard to establish some consensus across use cases.
-
+Mind you, the controlling identifier is only related to the `authenticity` goal. If there's any other logic that needs to be applied in the context of the payload which is anchored, this can always be added in addition. However, to label data as authentic, `controlling identifiers` are required, for it's the build-in mechanism for the general authenticity of the data model and does not depend on specific use cases.\
+Should the controlling identifier be missing, we can still fall back to the nano ledger and do some useful things with it. Sometimes it's even possible to achieve authenticity to the level of the payload. However, this needs specification per case, which makes it harder to offer general tooling across use cases.
 
 ### Governance for Veracity
 
