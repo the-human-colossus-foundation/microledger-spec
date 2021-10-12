@@ -4,7 +4,8 @@ Copyrights The Human Colossus Foundation 2021 under the [EUPL 1.2 license](LICEN
 
 ## Abstract
 
-Microledger is an authentic data provider leveraging the concept of a data provenance log. Provenance logs take a generalized form of a linked list data structure. The log uses cryptographic primitives to ensure integrity and consistency. The log has a strong cryptographic link to its controller.
+
+Although Microledger is not a new term, in this paper we discuss a novel approach to the topic. We propose Microledger, built on top of [Nanoledger](https://github.com/the-human-colossus-foundation/nanoledger-spec), as a self-contained evidence of changes, leveraging the concept of a data provenance log. Provenance logs take a generalized form of a linked list data structure. The log uses cryptographic primitives to ensure integrity and consistency. The log has a strong cryptographic link to its controller.
 
 ## Status of This Document
 
