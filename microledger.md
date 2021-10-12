@@ -57,10 +57,10 @@ Microledger consists of blocks. Each next block is bound to the previous block b
 ![concept2](assets/concept2.png)
 
 
-* `Seals` segment allows to include any arbitrary data in a block by including cryptographic digests (provenance) of that data.
-* `Controlling identifiers` segment describes control authority over the Microledger in a given block. Control may be established for single or multiple identifiers through the multisig feature. Furthermore, control over the Microledger block may be transferred to one or more different identifiers. This is done by anchoring new block to the chain, thus establishing new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
-* `Digital fingerprint` segment includes the cryptographically derived unique fingerprint of a given block. The digital fingerprint is a result of a one-way hash function operation on that block.
-* `Signatures` segment includes the cryptographic commitment of Custodians to a given Block.
+* `Seals` segment _MAY_ include any arbitrary data in a block by including cryptographic digests (provenance) of that data.
+* `Controlling identifiers` segment describes control authority over the Microledger in a given block. Control _MAY_ be established for single or multiple identifiers through the multisig feature. Furthermore, control over the Microledger block may be transferred to one or more different identifiers. This is done by anchoring new block to the chain, thus establishing new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
+* `Digital fingerprint` segment _MUST_ include the cryptographically derived unique fingerprint of a given block. The digital fingerprint is a result of a one-way hash function operation on that block.
+* `Signatures` segment _MUST_ include the cryptographic commitment of Custodians to a given Block.
 * `Seals registry` and `Seal attachments` provides a mechanism to resolve resources defined within the `seals` segment, The resolution eventually provides them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per separate Block. `Seal attachments` are content bound to given block and `Seals registry` is an additional layer that specifies how to resolve seals required in specific situations, for example from an external data source or {here another example?}.
 
 ### Seals in the form of digests
@@ -72,7 +72,7 @@ Microledger does not provide an interface to include arbitrary data into its blo
 
 ### Microledger identifier
 
-The unique identifier is derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Genesis Block`.
+The unique identifier _MAY_ be derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Genesis Block`.
 
 ## Characteristics
 
@@ -90,14 +90,14 @@ Microledgers are composable, which means that any newly bootstrapped genesis blo
 
 ### Ownership Transferability
 
-A current custodian (or a set of custodians for multisig) may transfer the ownership of Microledger to one or more next custodians.
+A current custodian (or a set of custodians for multisig) _MAY_ transfer the ownership of Microledger to one or more next custodians.
 
 During the course of its lifetime a Microledger does not have an owner at all times. Ownership, under the form of Custodians, is optional and defined per block, in the `Controlling Identifiers` section. So by design Ownership is block scoped and control authority is limited to a given block. 
 Knowing that a set of Custodians may anchor several consequtive blocks, it may be tempting to see them as owners of a Microledger, especially if these blocks are the only blocks in the chain. From the Microledger perspective, however, it is seen as a temporary state, because current set of Custodians may always be transferred to a new set of custodians.
 
 ![ownership-transferability](assets/ownership-transferability.png)
 
-As Microledger fosters DAG characteristics, in particular Custodians control authority over given blocks is irrevocable, however they may anchor new blocks apart from the main chain. 
+As Microledger fosters DAG characteristics, in particular Custodians control authority over given blocks is irrevocable, however they _MAY_ anchor new blocks apart from the main chain. 
 
 The diagram below illustrates this feature:
 
