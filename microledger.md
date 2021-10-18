@@ -21,7 +21,7 @@ In this document we propose __Microledger__ (ML). MLs design blends the concept 
 
 Microledgers consist of blocks, which include Seals (see terminology below) that act as abstract data container cordoned off by cryptographic digests. Block also includes Controlling Identifiers, where control authority over the block is defined. Only the sole owner of the block, so the Custodian(s), may anchor new block.
 {I think the conception of owner, holder and controller should be explained more at this stage} 
-The specification of Controlling Identifiers is optional. In case it's empty, anyone may anchor new block to the chain.
+The specification of Controlling Identifiers is optional. In case it's empty, anyone may anchor new block to the chain and external validation strategy needs to be applied if there is a need to verify if the blocked was added according to the business logic in given governance authority.
 
 ### Overview
 *This section is non-normative.*
@@ -49,16 +49,20 @@ This section is non-normative.
 
 **Seal** a cryptographic commitment in the form of a cryptographic digest that anchors arbitrary data to Block. **[KERI]** 
 
+**Genesis block** first block in the data structure, does not point to previous block.
+
 ## Concept
 
 Microledger consists of blocks. Each next block is bound to the previous block by including its cryptographic digest content. 
 
 
-![concept2](assets/concept2.png)
+![image](https://user-images.githubusercontent.com/312837/137744814-5d0412b8-5306-48ab-a065-38485636a14e.png)
+
 
 
 * `Seals` segment _MAY_ include any arbitrary data in a block by including cryptographic digests (provenance) of that data.
 * `Controlling identifiers` segment describes control authority over the Microledger in a given block. Control _MAY_ be established for single or multiple identifiers through the multisig feature. Furthermore, control over the Microledger block may be transferred to one or more different identifiers. This is done by anchoring new block to the chain, thus establishing new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
+* `Authentic Timestamp` - timestamp is necessary to assure the authenticity of the data. E.g. if the key was compromise knowing when the creation happen is the only way to find out if the data were created in an authentic way (data comes from of undisputed origin).  Timestamp needs to come from an authentic source e.g. Timestamping Authority, the self-attested timestamp is not worth much.
 * `Digital fingerprint` segment _MUST_ include the cryptographically derived unique fingerprint of a given block. The digital fingerprint is a result of a one-way hash function operation on that block.
 * `Signatures` segment _MUST_ include the cryptographic commitment of Custodians to a given Block.
 * `Seals registry` and `Seal attachments` provides a mechanism to resolve resources defined within the `seals` segment, The resolution eventually provides them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per separate Block. `Seal attachments` are content bound to given block and `Seals registry` is an additional layer that specifies how to resolve seals required in specific situations, for example from an external data source or {here another example?}.
@@ -134,6 +138,8 @@ Seals registry it is a external component to the microledger which acts as a loo
 
 ### Mapping table codes
 
+NOTE: This is just an example not yet definitive 
+
 The tables below provide the registry of derivation codes for all supported components.
 
 Digital fingerprint representation:
@@ -161,7 +167,7 @@ Control identifiers representation:
 
 ### End verifiability
 
-It's a two step process, where both authenticity and veracity are being verified.
+It's a two step process, where both authenticity and integrity are being verified.
 
 #### Authenticity
 
@@ -176,6 +182,14 @@ The Custodian(s) public keys are derived from their identifiers.
 ![custodian](assets/custodian.png)
 
 Fig: Scopes of verifiability are shown within dashed lines. `Controlling identifiers` public keys of `N-th` block have to match signatures of `N-th + 1` block.
+
+The genesis block (first block) is verfieid with the `controlling identifiers` of same block.
+
+##### Empty controlling identifiers
+
+If controlling identifiers are empty, the authenticity can still be achieved by external logic which could be incorporated into the payload (seal) of the block. The risk with leaving out the `controlling identifiers` is that you as custodian you would always be dependent on external service for validation and could not have control over microledger. This approach could conflict with the overall zero trust architecture if done wrongly. Although not recommended it is still completely valid use cases to have it empty the custodian need to take into consideration in that situation the security risks depending on how the validation strategy would be applied.
+On other hand, it gives more flexibility where you don't need to know upfront about who could be the controlling identifier and add some more complex validation strategies other than simple keys commitment. 
+
 
 
 #### Veracity
