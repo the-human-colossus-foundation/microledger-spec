@@ -4,7 +4,6 @@ Copyrights The Human Colossus Foundation 2021 under the [EUPL 1.2 license](LICEN
 
 ## Abstract
 
-
 Although Microledger is not a new term, in this paper we discuss a novel approach to the topic. We propose Microledger, built on top of [Nanoledger](https://github.com/the-human-colossus-foundation/nanoledger-spec), as a self-contained evidence of changes, leveraging the concept of a data provenance log. Provenance logs take a generalized form of a linked list data structure. The log uses cryptographic primitives to ensure integrity and consistency. The log has a strong cryptographic link to its controller.
 
 ## Status of This Document
@@ -47,22 +46,22 @@ This section is non-normative.
 
 **Multisig** an ability of the system that requires the Block signing procedure is done by one or more Custodians, so a group. It is a shared commitment of the group to signed Block, which is the outcome of how and from who digital signatures are expected. **[KERI]** 
 
-**Seal** a cryptographic commitment in the form of a cryptographic digest that anchors arbitrary data to Block. **[KERI]** 
+**Seal** a cryptographic commitment in the form of a cryptographic digest that anchors arbitrary data to Block. **[KERI]**
 
 **Genesis block** first block in the data structure, does not point to previous block.
 
 ## Concept
 
-Microledger consists of blocks. Each next block is bound to the previous block by including its cryptographic digest content. 
+Microledger consists of blocks. Each next block is bound to the previous block by including its cryptographic digest content.
 
 
-![image](https://user-images.githubusercontent.com/312837/137744814-5d0412b8-5306-48ab-a065-38485636a14e.png)
+![concept](assets/concept2.png)
 
 
 
 * `Seals` segment _MAY_ include any arbitrary data in a block by including cryptographic digests (provenance) of that data.
 * `Controlling identifiers` segment describes control authority over the Microledger in a given block. Control _MAY_ be established for single or multiple identifiers through the multisig feature. Furthermore, control over the Microledger block may be transferred to one or more different identifiers. This is done by anchoring new block to the chain, thus establishing new control authority. `Controlling identifiers` can be anything that is considered identifiable within given network, ie. `Public Key`, `DID`, `KERI` prefix and so on.
-* `Authentic Timestamp` - timestamp is necessary to assure the authenticity of the data. E.g. if the key was compromise knowing when the creation happen is the only way to find out if the data were created in an authentic way (data comes from of undisputed origin).  Timestamp needs to come from an authentic source e.g. Timestamping Authority, the self-attested timestamp is not worth much.
+* `Time imprint` - segment _MUST_ include an authentic imprint of the digital fingerprint of the block, so that it can be proven that a third party has seen given block in the past. This characteristic attestates that the block existed in the past exactly with given attributes. This form of attestation may have different forms 
 * `Digital fingerprint` segment _MUST_ include the cryptographically derived unique fingerprint of a given block. The digital fingerprint is a result of a one-way hash function operation on that block.
 * `Signatures` segment _MUST_ include the cryptographic commitment of Custodians to a given Block.
 * `Seals registry` and `Seal attachments` provides a mechanism to resolve resources defined within the `seals` segment, The resolution eventually provides them for further operations. `Seals registry` and `Seal attachments` are interchangeable and may be defined per separate Block. `Seal attachments` are content bound to given block and `Seals registry` is an additional layer that specifies how to resolve seals required in specific situations, for example from an external data source or {here another example?}.
@@ -118,6 +117,46 @@ Each of the core component of the microledger can be combined and adjusted in sp
 
 ![plugable](assets/plugable.png)
 
+#### Time imprint interface
+
+Provides interfaces to interact with third party services or infrastructure, including:
+
+##### TSA
+
+Timestamp Authorities (TSA) applying RFC 3161.
+
+**Attestations**
+
+TSA service by issuing the block digital fingerprint attestates (in the form of digital certificate), that the block fingerprint has been seen at given point in time in the past.
+
+**Verification**
+
+Perform verification against TSA certificate anchored to the block. In order to do so, obtain a public key (ie. from **[CT]**) of given TSA is enough to conduct the cryptographic verification, so to verify the authenticity.. Veracity verification requires from the TSA that it is considered trusted. The trust may be obtained from a **[PKI]** infrastructure, which is publicly considered as trusted, but only if given TSA claims to have a certificate from such PKI.
+
+##### Blockchain
+
+Blockchain clients allowing to anchor transactions.
+
+**Attestations**
+
+By adding the block digital fingerprint into the transaction, which is further anchored into the blockchain block. It is then considered as seen in the past under the form of block transaction. Note the attestation anchored into block transaction is solely dependent upon the block and not the clock. Block is the blockchain clock.
+
+**Verification**
+Query given blockchain against transaction specified in the block.
+
+##### KERI
+
+KERI ambient infrastructure based on Witnesses.
+
+**Attestations**
+
+By publishing to Witnesses block digital fingerprints. Witnesses witness under the form of receipts (concept similar to TSA digital certificates) that they have seen given data some time in the past.
+
+**Verification**
+
+Querying Witnesses or Watchers against given data to get the receipt. Receipts provide cryptographic proof and so can be verified against Witness public key. Note KERI is an ambient infrastructure, hence the amount of Witnesses required to consider given receipt as authentic may vary and is up to publisher how many Witnesses is required to satisfy the "enough Witnesses" requirement.
+
+
 ## Block fundamentals explained
 
 ### Seals
@@ -138,23 +177,26 @@ Seals registry it is a external component to the microledger which acts as a loo
 
 ### Mapping table codes
 
-NOTE: This is just an example not yet definitive 
+**NOTE:** This is just an example not yet definitive 
 
 The tables below provide the registry of derivation codes for all supported components.
 
 Digital fingerprint representation:
+
 |Concept|Code|
 |---|---|
 |SAI|A|
 |Multihash|B|
 
 Seal representation:
+
 |Concept|Code|
 |---|---|
 |SAI|A|
 |Multihash|B|
 
 Control identifiers representation:
+
 |Concept|Code|
 |---|---|
 |Self-certifying basic prefix|A|
@@ -233,6 +275,7 @@ Synchronous and asynchronous transfer enforces appropriate exchange protocols to
 * **[DAG]**: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 * **[ES]**: https://martinfowler.com/eaaDev/EventSourcing.html
 * **[SOA]**: https://en.wikipedia.org/wiki/Service-oriented_architecture
+* **[CT]**: https://en.wikipedia.org/wiki/Certificate_Transparency
 * [Multiformats] <https://multiformats.io/>
 * [Multicodec] <https://github.com/multiformats/multicodec>
 * [Multihash] <https://multiformats.io/multihash/>
