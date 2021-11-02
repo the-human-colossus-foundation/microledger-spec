@@ -125,35 +125,34 @@ Provides interfaces to interact with third party services or infrastructure, inc
 
 Timestamp Authorities (TSA) applying RFC 3161.
 
-**Attestations**
+###### Attestations
 
 TSA service by issuing the block digital fingerprint attestates (in the form of digital certificate), that the block fingerprint has been seen at given point in time in the past.
 
-**Verification**
+###### Verification
 
-Perform verification against TSA certificate anchored to the block. In order to do so, obtain a public key (ie. from **[CT]**) of given TSA is enough to conduct the cryptographic verification, so to verify the authenticity.. Veracity verification requires from the TSA that it is considered trusted. The trust may be obtained from a **[PKI]** infrastructure, which is publicly considered as trusted, but only if given TSA claims to have a certificate from such PKI.
+Perform verification against TSA certificate anchored to the block. In order to do so, obtain a public key (ie. from **[CT]**) of given TSA is enough to conduct the cryptographic verification, so to verify the authenticity. Veracity verification requires from the TSA that it is considered trusted. The trust may be obtained from a **[PKI]** infrastructure, which is publicly considered as trusted, but only if given TSA claims to have a certificate from such PKI.
 
 ##### Blockchain
 
 Blockchain clients allowing to anchor transactions.
 
-**Attestations**
+###### Attestations
 
 By adding the block digital fingerprint into the transaction, which is further anchored into the blockchain block. It is then considered as seen in the past under the form of block transaction. Note the attestation anchored into block transaction is solely dependent upon the block and not the clock. Block is the blockchain clock.
 
-**Verification**
+###### Verification
 Query given blockchain against transaction specified in the block.
 
 ##### KERI
 
 KERI ambient infrastructure based on Witnesses.
 
-**Attestations**
+###### Attestations
 
 By publishing to Witnesses block digital fingerprints. Witnesses witness under the form of receipts (concept similar to TSA digital certificates) that they have seen given data some time in the past.
 
-**Verification**
-
+###### Verification
 Querying Witnesses or Watchers against given data to get the receipt. Receipts provide cryptographic proof and so can be verified against Witness public key. Note KERI is an ambient infrastructure, hence the amount of Witnesses required to consider given receipt as authentic may vary and is up to publisher how many Witnesses is required to satisfy the "enough Witnesses" requirement.
 
 
@@ -276,6 +275,7 @@ Synchronous and asynchronous transfer enforces appropriate exchange protocols to
 * **[ES]**: https://martinfowler.com/eaaDev/EventSourcing.html
 * **[SOA]**: https://en.wikipedia.org/wiki/Service-oriented_architecture
 * **[CT]**: https://en.wikipedia.org/wiki/Certificate_Transparency
+* **[PKI]**: https://en.wikipedia.org/wiki/Public_key_infrastructure
 * [Multiformats] <https://multiformats.io/>
 * [Multicodec] <https://github.com/multiformats/multicodec>
 * [Multihash] <https://multiformats.io/multihash/>
