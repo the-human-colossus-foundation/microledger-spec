@@ -150,7 +150,7 @@ KERI ambient infrastructure based on Witnesses.
 
 ###### Attestations
 
-By publishing to Witnesses block digital fingerprints. Witnesses witness under the form of receipts (concept similar to TSA digital certificates) that they have seen given data some time in the past.
+By publishing to Witnesses block digital fingerprint. Witnesses witness under the form of receipts (concept similar to TSA digital certificates), so a digital proof that they have seen given data some time in the past.
 
 ###### Verification
 Querying Witnesses or Watchers against given data to get the receipt. Receipts provide cryptographic proof and so can be verified against Witness public key. Note KERI is an ambient infrastructure, hence the amount of Witnesses required to consider given receipt as authentic may vary and is up to publisher how many Witnesses is required to satisfy the "enough Witnesses" requirement.
