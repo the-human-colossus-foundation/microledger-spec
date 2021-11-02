@@ -12,15 +12,13 @@ DRAFT
 
 ## Introduction
 
-The wish to have parts (or chunks) of data stored in order (or as a chain of events) is not a new phenomenon. For example a _bank account balance_ calculated from all the historical transaction events is definitely a more robust approach than merely changing its balance value. Each time an event (e.g. a money withdrawal) takes place, we'd like to register those events explicitely for future use and verification. By doing so, we can combine two main concepts that have evolved seperately so far: Event Sourcing **[ES]** and _chain of blocks_ or simply a Blockchain. Both structures already exist for quite some time. They solve the same fundamental challenge by providing evidence of state changes. Both share similar characteristics like immutable data structures, append only logs or monotonic updates. These update append anchoring changes always at the end of the log. However, but structures, ES versus blockchains provide those features differenly. The reason for that is their distinct origin: Event Sourcing emerged due the rise of message oriented systems in Service Oriented Architecture **[SOA]** and in particular in Microservices architecture. Conversely, blockchains became mainstream after they where used in bitcoin and other cryptocurrencies. 
+The wish to have parts (or chunks) of data stored in order (or as a chain of events) is not a new phenomenon. For example a _bank account balance_ calculated from all the historical transaction events is definitely a more robust approach than merely changing its balance value. Each time an event (e.g. a money withdrawal) takes place, we'd like to register those events explicitely for future use and verification. By doing so, we can combine two main concepts that have evolved seperately so far: Event Sourcing **[ES]** and _chain of blocks_ or simply a Blockchain. Both structures already exist for quite some time. They solve the same fundamental challenge by providing evidence of state changes. Both share similar characteristics like immutable data structures, append only logs or monotonic updates. However, both structures, ES versus blockchains provide those features differenly. The reason for that is their distinct origin: Event Sourcing emerged due the rise of message oriented systems in Service Oriented Architecture **[SOA]** and in particular in Microservices architecture. Conversely, blockchains became mainstream after they where used in bitcoin and other cryptocurrencies. 
 
-The underlying difference between Event Sourcing and Blockchain is how the latter utilizes cryptography to ensure end-verifiability and in particular the authenticity of all the blocks since genesis block. Event Sourcing does not have the characteristic 'end-verifiable'. Blockchains have features beyond end-verfiability. A blockchain is considered a distributed, globally ordered ledger with high resistance to Byzantine generals problem. However, this comes with a cost. Due to the nature how they operate, they are not known for high transaction rates.
+The underlying difference between Event Sourcing and Blockchain is how the latter utilizes cryptography to ensure end-verifiability and in particular the authenticity of all the blocks since genesis block. Event Sourcing does not have the characteristic 'end-verifiable'. Blockchains have features beyond end-verfiability. A blockchain is considered a distributed, globally ordered ledger with high resistance to Byzantine generals problem. However, this comes with a cost. Due to the nature how they operate, they do not exhibit high throughput.
 
 In this document we propose __Microledger__ (ML). MLs design blends the concept of Event Sourcing and Blockchain. Microledger is an immutable, append only log that serves end-verifiable evidence of state changes. Microledger does not require global ordering or consistency, or a peer-to-peer network to operate in particular, because it is solely a cryptographically-bound evidence of events. Whoever has a copy of a Microledger instance is able to verify the authenticity on his own and eventally verify the veracity in a next step. Eventually, because it is assumed that controlling identifiers resolution is time consuming operation and may depend on other infrastructure that is not ie. highly available.
 
-Microledgers consist of blocks, which include Seals (see terminology below) that act as abstract data container cordoned off by cryptographic digests. Block also includes Controlling Identifiers, where control authority over the block is defined. Only the sole owner of the block, so the Custodian(s), may anchor new block.
-{I think the conception of owner, holder and controller should be explained more at this stage} 
-The specification of Controlling Identifiers is optional. In case it's empty, anyone may anchor new block to the chain and external validation strategy needs to be applied if there is a need to verify if the blocked was added according to the business logic in given governance authority.
+Microledgers consist of blocks, which include Seals (see terminology below) that act as abstract data container cordoned off by cryptographic digests. Block also includes Controlling Identifiers, where control authority over the block is defined. Only the sole owner of the block, so the Custodian(s), may anchor new block. The specification of Controlling Identifiers is optional. In case it's empty, anyone may anchor new block to the chain and external validation strategy needs to be applied if there is a need to verify if the blocked was added according to the business logic in given governance authority. Furthermore each block contains time imprint field, which provides the authenticity for "being seen" in the past by a third party.
 
 ### Overview
 *This section is non-normative.*
@@ -40,15 +38,17 @@ This section is non-normative.
 
 ## Terminology
 
-**SAI** Self-Addressing Identifier
-
 **Custodian** a role that indicates the ownership over Microledger.
+
+**Genesis block** first block in the data structure, does not point to previous block.
+
+**Identifier** a non-repudiable and unambiguous pointer to an Identity current public key.
 
 **Multisig** an ability of the system that requires the Block signing procedure is done by one or more Custodians, so a group. It is a shared commitment of the group to signed Block, which is the outcome of how and from who digital signatures are expected. **[KERI]** 
 
-**Seal** a cryptographic commitment in the form of a cryptographic digest that anchors arbitrary data to Block. **[KERI]**
+**SAI** Self-Addressing Identifier
 
-**Genesis block** first block in the data structure, does not point to previous block.
+**Seal** a cryptographic commitment in the form of a cryptographic digest that anchors arbitrary data to Block. **[KERI]**
 
 ## Concept
 
@@ -75,7 +75,7 @@ Microledger does not provide an interface to include arbitrary data into its blo
 
 ### Microledger identifier
 
-The unique identifier _MAY_ be derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Genesis Block`.
+The unique Microledger identifier _MAY_ be derived from the genesis block of the Microledger. In essence this is the cryptographic hash declared for `Genesis Block`.
 
 ## Characteristics
 
